@@ -29,6 +29,30 @@ function renderizarTabela() {
   });
 }
 
+function calcularIdade(dataNascimento) {
+
+const nascimento = new Date(dataNascimento + 'T00:00:00');
+const hoje = new Date();
+
+let idade = hoje.getFullYear() - nascimento.getFullYear();
+
+const mesAtual = hoje.getMonth();
+const mesNascimento = nascimento.getMonth();
+
+// Se ainda não fez aniversário neste ano, diminui 1
+if (
+mesAtual < mesNascimento ||
+(
+mesAtual === mesNascimento &&
+hoje.getDate() < nascimento.getDate()
+)
+) {
+idade--;
+}
+
+return idade;
+}
+
 // Função utilitária só para formatar a data no padrão dd/mm/aaaa
 function formatarData(dataISO) {
   const [ano, mes, dia] = dataISO.split('-');
