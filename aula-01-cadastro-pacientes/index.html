@@ -31,7 +31,7 @@
 
       <div class="col-md-4">
         <label for="telefone" class="form-label">Telefone</label>
-        <input type="telefone" class="form-control" id="tel" required>
+        <input type="telefone" class="form-control" id="telefone" required>
       </div>
 
       <div class="col-md-3">
@@ -57,11 +57,12 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Nome</th>
+          <th onclick="ordenarPorNome()" style="cursor: pointer;" title="Clique para ordenar por nome">Nome</th>
           <th>E-mail</th>
           <th>Telefone</th>
           <th>Data de nascimento</th>
           <th>Idade</th>
+           <th>Ações</th>
         </tr>
       </thead>
       <tbody id="tabela-pacientes">
