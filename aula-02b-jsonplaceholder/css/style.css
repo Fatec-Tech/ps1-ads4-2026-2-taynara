@@ -1,0 +1,86 @@
+:root {
+  --floresta: #12372a;
+  --verde: #2a7d4f;
+  --lima: #b6e388;
+  --menta: #e6f3ea;
+  --fundo: #f3f7f2;
+}
+
+body {
+  background-color: var(--fundo);
+}
+
+.topo {
+  background: var(--floresta);
+  color: #fff;
+  padding: 2.5rem 0 2rem;
+  border-bottom: 5px solid var(--lima);
+}
+
+.topo h1 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 700;
+  font-size: 2.4rem;
+}
+
+.topo p {
+  color: var(--lima);
+}
+
+.form-control:focus {
+  border-color: var(--verde);
+  box-shadow: 0 0 0 0.2rem rgba(42, 125, 79, 0.25);
+}
+
+.item-usuario {
+  cursor: pointer;
+  border-left: 5px solid transparent;
+  transition: background 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.item-usuario:hover {
+  background: var(--menta);
+  border-left-color: var(--verde);
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--verde);
+  color: #fff;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seta {
+  color: var(--verde);
+  font-size: 1.6rem;
+}
+
+.btn-voltar {
+  color: var(--verde);
+  border: 1px solid var(--verde);
+}
+
+.btn-voltar:hover {
+  background: var(--verde);
+  color: #fff;
+}
+
+#detalhe-nome {
+  font-family: 'Fraunces', Georgia, serif;
+  color: var(--floresta);
+}
+
+#lista-posts .list-group-item {
+  border-left: 5px solid var(--verde);
+}
+
+#lista-posts strong {
+  color: var(--floresta);
+  text-transform: capitalize;
+}
