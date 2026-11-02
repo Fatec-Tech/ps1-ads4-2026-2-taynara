@@ -1,6 +1,5 @@
-// Para testar localmente. Depois do deploy, troque por:
-// 'https://api-clinica-SEU_NOME.onrender.com/pacientes'
-const URL_API = 'http://localhost:3000/pacientes';
+
+const URL_API = 'https://api-clinica-taynara.onrender.com/pacientes';
 
 const formulario = document.getElementById('form-paciente');
 const tabela = document.getElementById('tabela-pacientes');
