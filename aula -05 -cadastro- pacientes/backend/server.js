@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const COLUNAS = 'id, nome, email, nascimento';
+const COLUNAS = 'id, nome, email, nascimento, telefone';
 
 function dadosValidos(corpo) {
   const { nome, email, nascimento } = corpo ?? {};
@@ -29,10 +29,22 @@ function tratarErro(res, erro) {
   res.status(500).json({ erro: 'Erro interno do servidor' });
 }
 
-// READ (lista) — GET /pacientes
+// READ (lista) — GET /pacientes  (com busca opcional: ?nome=ana)
 app.get('/pacientes', async (req, res) => {
+  const { nome } = req.query;
+
   try {
-    const resultado = await pool.query(`SELECT ${COLUNAS} FROM pacientes ORDER BY id`);
+    let resultado;
+
+    if (nome) {
+      resultado = await pool.query(
+        `SELECT ${COLUNAS} FROM pacientes WHERE nome ILIKE $1 ORDER BY id`,
+        [`%${nome}%`]
+      );
+    } else {
+      resultado = await pool.query(`SELECT ${COLUNAS} FROM pacientes ORDER BY id`);
+    }
+
     res.json(resultado.rows);
   } catch (erro) {
     tratarErro(res, erro);
@@ -80,14 +92,14 @@ app.post('/pacientes', async (req, res) => {
     return res.status(400).json({ erro: 'Nome, e-mail e nascimento são obrigatórios' });
   }
 
-  const { nome, email, nascimento } = req.body;
+  const { nome, email, nascimento, telefone } = req.body;
 
   try {
     const resultado = await pool.query(
-      `INSERT INTO pacientes (nome, email, nascimento)
-       VALUES ($1, $2, $3)
+      `INSERT INTO pacientes (nome, email, nascimento, telefone)
+       VALUES ($1, $2, $3, $4)
        RETURNING ${COLUNAS}`,
-      [nome, email, nascimento]
+      [nome, email, nascimento, telefone ?? null]
     );
 
     res.status(201).json(resultado.rows[0]);
@@ -108,15 +120,15 @@ app.put('/pacientes/:id', async (req, res) => {
     return res.status(400).json({ erro: 'Nome, e-mail e nascimento são obrigatórios' });
   }
 
-  const { nome, email, nascimento } = req.body;
+  const { nome, email, nascimento, telefone } = req.body;
 
   try {
     const resultado = await pool.query(
       `UPDATE pacientes
-          SET nome = $1, email = $2, nascimento = $3
-        WHERE id = $4
+          SET nome = $1, email = $2, nascimento = $3, telefone = $4
+        WHERE id = $5
         RETURNING ${COLUNAS}`,
-      [nome, email, nascimento, id]
+      [nome, email, nascimento, telefone ?? null, id]
     );
 
     if (resultado.rowCount === 0) {

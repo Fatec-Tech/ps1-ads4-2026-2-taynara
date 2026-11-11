@@ -2,7 +2,8 @@ CREATE TABLE IF NOT EXISTS pacientes (
   id         SERIAL PRIMARY KEY,
   nome       VARCHAR(100) NOT NULL,
   email      VARCHAR(150) NOT NULL UNIQUE,
-  nascimento DATE         NOT NULL
+  nascimento DATE         NOT NULL,
+  telefone   VARCHAR(20)
 );
 
 -- Dados iniciais (os mesmos das aulas anteriores)
