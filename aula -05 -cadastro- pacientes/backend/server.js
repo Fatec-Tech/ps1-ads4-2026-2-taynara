@@ -39,6 +39,17 @@ app.get('/pacientes', async (req, res) => {
   }
 });
 
+// READ (total) — GET /pacientes/total
+// Precisa vir ANTES de /pacientes/:id
+app.get('/pacientes/total', async (req, res) => {
+  try {
+    const resultado = await pool.query('SELECT COUNT(*) FROM pacientes');
+    res.json({ total: Number(resultado.rows[0].count) });
+  } catch (erro) {
+    tratarErro(res, erro);
+  }
+});
+
 // READ (um) — GET /pacientes/:id
 app.get('/pacientes/:id', async (req, res) => {
   const id = Number(req.params.id);
